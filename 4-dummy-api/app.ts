@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosResponse, isAxiosError} from "axios";
+import axios, {AxiosError, AxiosResponse, HttpStatusCode, isAxiosError} from "axios";
 import {BloodGroup, CryptoCoin, EyeColor, Gender, HairColor} from "./users.enums";
 
 type ResponseUsers = {
@@ -8,19 +8,31 @@ type ResponseUsers = {
     limit: number
 }
 
-async function getDataUsers() {
-    try {
-        const response = await axios.get<ResponseUsers>('https://dummyjson.com/users');
-        console.log(response.statusText)
-    } catch (e: unknown) {
-        if (isAxiosError(e)) {
-            console.log((e.response?.data));
-            return;
-        }
-        if (e instanceof Error) {
-            console.log(e.message)
-        }
+
+type ErrorRes = AxiosError & { errorMessage:string };
+
+type Res = AxiosResponse<ResponseUsers> | AxiosResponse<ErrorRes>
+
+
+function isSuccess (res: Res): res is AxiosResponse<ResponseUsers> {
+    if (res.status === HttpStatusCode.Ok) {
+        return true;
     }
+    return false;
+}
+
+function getUsersFromData (res: Res): User[] {
+    if (isSuccess(res)) {
+        return res.data.users;
+    } else {
+        throw new Error(res.data.errorMessage)
+    }
+}
+
+async function getDataUsers() {
+    const response = await axios.get<ResponseUsers>('https://dummyjson.com/users');
+    const users = getUsersFromData(response);
+    console.log(users)
 }
 
 getDataUsers()

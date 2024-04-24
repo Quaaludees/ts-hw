@@ -33,49 +33,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importStar(require("axios"));
-var ResponseStatus;
-(function (ResponseStatus) {
-    ResponseStatus[ResponseStatus["Success"] = 200] = "Success";
-    ResponseStatus[ResponseStatus["Failed"] = 404] = "Failed";
-})(ResponseStatus || (ResponseStatus = {}));
+function isSuccess(res) {
+    if (res.status === axios_1.HttpStatusCode.Ok) {
+        return true;
+    }
+    return false;
+}
+function getUsersFromData(res) {
+    if (isSuccess(res)) {
+        return res.data.users;
+    }
+    else {
+        throw new Error(res.data.errorMessage);
+    }
+}
 function getDataUsers() {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a;
-        try {
-            const response = yield axios_1.default.get('https://dummyjson.com/users2');
-            console.log(response.statusText);
-        }
-        catch (e) {
-            if ((0, axios_1.isAxiosError)(e)) {
-                console.dir(e);
-                console.log(((_a = e.response) === null || _a === void 0 ? void 0 : _a.data));
-            }
-            if (e instanceof Error) {
-                console.log(e.message);
-            }
-        }
+        const response = yield axios_1.default.get('https://dummyjson.com/users');
+        const users = getUsersFromData(response);
+        console.log(users);
     });
 }
 getDataUsers();
-var HairColor;
-(function (HairColor) {
-    HairColor["black"] = "black";
-    HairColor["blond"] = "blond";
-})(HairColor || (HairColor = {}));
-var Gender;
-(function (Gender) {
-    Gender["Male"] = "male";
-    Gender["Female"] = "female";
-})(Gender || (Gender = {}));
-var BloodGroup;
-(function (BloodGroup) {
-    BloodGroup["APlus"] = "A+";
-    BloodGroup["OMinus"] = "O-";
-    BloodGroup["ABMinus"] = "AB-";
-    BloodGroup["BMinus"] = "B-";
-})(BloodGroup || (BloodGroup = {}));
-var CryptoCoin;
-(function (CryptoCoin) {
-    CryptoCoin["Bitcoin"] = "Bitcoin";
-    CryptoCoin["Ethereum"] = "Ethereum";
-})(CryptoCoin || (CryptoCoin = {}));
