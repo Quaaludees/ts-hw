@@ -1,4 +1,5 @@
 import axios, {AxiosError, AxiosResponse, isAxiosError} from "axios";
+import {BloodGroup, CryptoCoin, EyeColor, Gender, HairColor} from "./users.enums";
 
 type ResponseUsers = {
     users: User[]
@@ -23,29 +24,6 @@ async function getDataUsers() {
 }
 
 getDataUsers()
-
-enum HairColor {
-    black = 'black',
-    blond = 'blond',
-
-}
-
-enum Gender {
-    Male = 'male',
-    Female = 'female'
-}
-
-enum BloodGroup {
-    APlus = 'A+',
-    OMinus = 'O-',
-    ABMinus = 'AB-',
-    BMinus = 'B-'
-}
-
-enum CryptoCoin {
-    Bitcoin = 'Bitcoin',
-    Ethereum = 'Ethereum'
-}
 
 type Address = {
     address: string
@@ -95,9 +73,7 @@ type User = {
 
     weight: number
 
-    eyeColor: string
-
-
+    eyeColor: EyeColor
     domain: string
 
     ip: string
