@@ -15,7 +15,10 @@ class HrenMap {
 
     get(key: unknown): unknown | undefined {
         const hash = this.getHash(key);
-        return this.stateMap?.[hash];
+        if (!this.stateMap[hash]) {
+            return undefined;
+        }
+        return this.stateMap[hash];
     }
 
     has(key: unknown): boolean {
@@ -59,7 +62,7 @@ class HrenMap {
 
 // console.log(test)
 // console.log(test.has('огурец'))
-// console.log(test.get('огурец'))
+// console.log(test.get('огурец2'))
 // console.log(test.get('помидор'))
 // test.set('помидор', 500);
 // console.log(test.get('помидор'))

@@ -12,6 +12,9 @@ class HrenMap {
     }
     get(key) {
         const hash = this.getHash(key);
+        // if (!this.stateMap[hash]) {
+        //     return undefined;
+        // }
         return this.stateMap?.[hash];
     }
     has(key) {
@@ -43,14 +46,14 @@ class HrenMap {
         return hash.toString();
     }
 }
-// const test = new HrenMap([
-//     ["огурец", 500],
-//     ["помидор", 350],
-//     ["лук", 50]
-// ])
+const test = new HrenMap([
+    ["огурец", 500],
+    ["помидор", 350],
+    ["лук", 50]
+]);
 // console.log(test)
 // console.log(test.has('огурец'))
-// console.log(test.get('огурец'))
+console.log(test.get('огурец2'));
 // console.log(test.get('помидор'))
 // test.set('помидор', 500);
 // console.log(test.get('помидор'))
