@@ -18,3 +18,6 @@ function pickKeys<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<
 
 const test = pickKeys(user, ["age", 'skills']);
 
+
+
+//
