@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "sort-by": "^1.2.0"
+  },
+  "type": "module"
+}
